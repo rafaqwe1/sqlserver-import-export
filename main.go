@@ -8,14 +8,25 @@ import (
 	"fmt"
 	"os"
 	"runtime"
+	"runtime/debug"
 
 	_ "github.com/microsoft/go-mssqldb"
 	"github.com/rafaqwe1/sqlserver-import-export/internal/export"
 	"github.com/rafaqwe1/sqlserver-import-export/internal/importrun"
 )
 
-// version is set via -ldflags at release build time (see .goreleaser.yaml).
+// version is set via -ldflags for release builds (see .goreleaser.yaml). For
+// "go install .../sqlserver-import-export@vX", which applies no ldflags,
+// it falls back to the module version Go itself embeds in the binary.
 var version = "dev"
+
+func init() {
+	if version == "dev" {
+		if info, ok := debug.ReadBuildInfo(); ok && info.Main.Version != "" && info.Main.Version != "(devel)" {
+			version = info.Main.Version
+		}
+	}
+}
 
 func defaultParallelism() int {
 	if n := runtime.NumCPU(); n < 8 {
