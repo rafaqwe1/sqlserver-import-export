@@ -17,7 +17,11 @@ Requires Go 1.24+.
 
 ```bash
 go install github.com/rafaqwe1/sqlserver-import-export@latest
+# or pin a specific version:
+go install github.com/rafaqwe1/sqlserver-import-export@v0.1.1
 ```
+
+Or grab a prebuilt binary (Linux/macOS/Windows, amd64/arm64) from the [releases page](https://github.com/rafaqwe1/sqlserver-import-export/releases) — no Go toolchain needed.
 
 Or from source:
 
@@ -26,6 +30,8 @@ git clone https://github.com/rafaqwe1/sqlserver-import-export.git
 cd sqlserver-import-export
 go build -o sqlserver-import-export .
 ```
+
+`sqlserver-import-export -version` prints the installed version.
 
 ## Quick start
 
