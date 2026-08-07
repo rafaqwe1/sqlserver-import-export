@@ -5,3 +5,6 @@
 
 # local export/import output from manual testing
 /backup/
+
+# goreleaser build output
+/dist/

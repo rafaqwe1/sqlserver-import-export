@@ -14,6 +14,9 @@ import (
 	"github.com/rafaqwe1/sqlserver-import-export/internal/importrun"
 )
 
+// version is set via -ldflags at release build time (see .goreleaser.yaml).
+var version = "dev"
+
 func defaultParallelism() int {
 	if n := runtime.NumCPU(); n < 8 {
 		return n
@@ -22,6 +25,7 @@ func defaultParallelism() int {
 }
 
 func main() {
+	showVersion := flag.Bool("version", false, "print the version and exit")
 	mode := flag.String("mode", "", "required: \"export\" or \"import\"")
 	conn := flag.String("conn", "", "required: SQL Server connection string (source for export, target for import)")
 	dir := flag.String("dir", ".", "export: output directory; import: input directory")
@@ -31,6 +35,11 @@ func main() {
 	skipSchema := flag.Bool("skip-schema", false, "import only: skip schema.sql and only run data-import.sql")
 	reset := flag.Bool("reset", false, "import only: clear the target first (drop+recreate tables normally, or just delete all rows with -skip-schema) so re-running import doesn't fail on leftovers from a previous run")
 	flag.Parse()
+
+	if *showVersion {
+		fmt.Println("sqlserver-import-export " + version)
+		return
+	}
 
 	if *mode != "export" && *mode != "import" {
 		fmt.Fprintln(os.Stderr, "error: -mode must be \"export\" or \"import\"")
