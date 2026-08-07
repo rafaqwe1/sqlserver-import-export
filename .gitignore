@@ -1,0 +1,7 @@
+/sqlserver-import-export
+*.exe
+*.test
+*.out
+
+# local export/import output from manual testing
+/backup/
