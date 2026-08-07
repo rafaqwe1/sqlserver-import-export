@@ -151,4 +151,4 @@ Integration tests run against a dedicated, disposable SQL Server container — n
 
 ## License
 
-No license file yet, so default all-rights-reserved applies. I'll add one (MIT or Apache-2.0, probably) if this ends up being useful to anyone else.
+MIT — see [LICENSE](LICENSE).
